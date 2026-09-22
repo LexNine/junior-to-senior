@@ -1,0 +1,74 @@
+:root {
+  --paper: #fbfaf7;
+  --ink: #1f2933;
+  --muted: #64707d;
+  --line: #d9d6cf;
+  --accent: #9a3412;
+  --accent-soft: #fff1e8;
+  --blue: #164e63;
+  --blue-soft: #ecf8fb;
+  --max: 920px;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--paper); }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font: 17px/1.75 system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+}
+
+main { max-width: var(--max); margin: 0 auto; padding: 4rem 1.25rem 6rem; }
+
+.eyebrow {
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 750;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+h1, h2, h3 { line-height: 1.25; letter-spacing: -.02em; }
+h1 { max-width: 760px; font-size: clamp(2.2rem, 6vw, 4.4rem); margin: .5rem 0 1rem; }
+h2 { margin-top: 3rem; font-size: 1.7rem; }
+h3 { margin-top: 0; font-size: 1.12rem; }
+p { max-width: 700px; }
+
+.lede { color: var(--muted); font-size: 1.18rem; max-width: 700px; }
+.rule { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
+
+.grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+.card, .callout, .prompt {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.15rem 1.25rem;
+  background: rgba(255,255,255,.45);
+}
+.card strong { color: var(--accent); display: block; font-size: 1.3rem; margin-bottom: .25rem; }
+.callout { border-color: #f2c8ad; background: var(--accent-soft); }
+.prompt { border-color: #b6d9e4; background: var(--blue-soft); }
+
+ol, ul { padding-left: 1.35rem; }
+li { margin: .35rem 0; }
+code { background: #eeeae3; border-radius: 4px; padding: .08em .3em; }
+a { color: var(--blue); }
+
+blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 1.5rem 0;
+  padding: .2rem 1rem;
+  color: #4b5563;
+}
+
+details { border-bottom: 1px solid var(--line); padding: .8rem 0; }
+summary { cursor: pointer; font-weight: 700; }
+.small { color: var(--muted); font-size: .9rem; }
+.source { color: var(--muted); font-size: .9rem; }
+
+@media print {
+  main { padding: 1rem; }
+  a { color: inherit; }
+  .prompt { break-inside: avoid; }
+}

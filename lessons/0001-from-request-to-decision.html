@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第 1 课：从模糊请求到可验证决策</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<main>
+  <div class="eyebrow">战略程序员 · 第 1 课</div>
+  <h1>先决定要证明什么，再决定写什么代码</h1>
+  <p class="lede">AI 可以很快生成实现，但它不会替你承担“这个问题值得解决吗、边界在哪里、失败会伤害谁、上线后怎样知道它有效”的责任。</p>
+
+  <div class="callout">
+    <strong>本课的一个胜利</strong>
+    <p>你能把一句模糊需求压缩成一页战略简报，并指出第一个可交付、可验证、可撤回的切片。</p>
+  </div>
+
+  <h2>战略能力到底在做什么</h2>
+  <p>战略不是写更长的计划，而是在扩大实现成本前减少关键不确定性。代码只是决策的末端：它把“目标、边界、权衡、证据”固化进系统。</p>
+  <p>成熟的工作单位不是“我写了多少行”，而是“团队能否用较小的变化获得真实反馈”。Google 的工程实践把小而自洽的变更与更快、更彻底的审查、更小的故障半径和更容易的回滚联系在一起；AWS 的运营卓越原则也把小步、可逆变更、可观测性和从事件中学习放在同一个交付闭环里。</p>
+
+  <h2>开工前的六问</h2>
+  <div class="grid">
+    <div class="card"><strong>1 · 结果</strong>要改变谁的什么可观察行为？</div>
+    <div class="card"><strong>2 · 代价</strong>谁会受影响？失败会损失什么？</div>
+    <div class="card"><strong>3 · 不变量</strong>哪些权限、数据和兼容性规则不能破坏？</div>
+    <div class="card"><strong>4 · 不做</strong>本次明确不承诺什么？</div>
+    <div class="card"><strong>5 · 切片</strong>最小的真实反馈是什么？能否独立发布？</div>
+    <div class="card"><strong>6 · 证据</strong>怎样验收、观察、发布和撤回？</div>
+  </div>
+  <p><a href="../reference/strategic-brief.md">打开参考卡：战略简报模板 →</a></p>
+
+  <h2>例子：把“加一个导出功能”变成决策</h2>
+  <p>战术描述是：“给后台订单页加 CSV 导出。”战略简报会更像这样：</p>
+  <div class="prompt">
+    <p><strong>结果：</strong>客服能在不请求工程师查库的情况下，把当前筛选出的订单交给客户。</p>
+    <p><strong>约束：</strong>只能导出用户有权限看到的数据；导出动作要留审计记录；大结果集不能拖垮在线查询。</p>
+    <p><strong>本次不做：</strong>定时导出、自定义列、异步任务中心和多格式下载。</p>
+    <p><strong>最小切片：</strong>复用现有筛选条件，只支持 CSV 和一个明确的行数上限；超限时给出可理解的提示。</p>
+    <p><strong>证据：</strong>权限测试、边界数量测试、审计记录检查；灰度发布后观察导出失败率和查询延迟；出现异常可关闭入口。</p>
+  </div>
+  <p>注意：这里没有先争论“用哪个 CSV 库”。先把结果和护栏说清楚，技术选择才有上下文。</p>
+
+  <h2>AI 应该插在哪一步</h2>
+  <ol>
+    <li><strong>人先写边界：</strong>目标、约束、非目标和最大未知数。</li>
+    <li><strong>AI 扩大探索：</strong>让它列假设、反例、边界条件、拆分方式和验证方案。</li>
+    <li><strong>AI 加速实现：</strong>生成代码、测试、迁移脚本或文档草案。</li>
+    <li><strong>人负责证明：</strong>核对行为、系统边界、数据风险、发布护栏和回滚路径。</li>
+  </ol>
+  <blockquote>把 AI 当作“高产出的初稿作者和反方审稿人”，不要把它当作需求负责人或上线审批人。</blockquote>
+
+  <h2 id="practice">练习：写你的第一份战略简报</h2>
+  <p>选一个你最近见过的真实需求；如果暂时没有，就用“给产品增加 AI 代码审查机器人”。不要写代码，先回答下面八项：</p>
+  <div class="prompt">
+    <ol>
+      <li>结果：用户最终能做什么以前做不到的事？</li>
+      <li>受影响者：谁受益，谁可能承担失败代价？</li>
+      <li>一个最重要的约束或不变量是什么？</li>
+      <li>本次明确不做什么？</li>
+      <li>最小切片是什么？</li>
+      <li>你会用什么测试或观察证明它工作？</li>
+      <li>如果上线后出问题，怎样快速关闭或回滚？</li>
+      <li>最大未知数是什么？最便宜的验证方式是什么？</li>
+    </ol>
+  </div>
+  <p><strong>请直接把答案发给我。</strong>我会只从“结果是否可观察、切片是否真的最小、证据是否足够、风险是否被遗漏”四个角度反馈；你的回答显示出稳定理解后，再把相关术语写入本课程的词汇表和学习记录。</p>
+
+  <h2>延伸阅读</h2>
+  <ul class="source">
+    <li><a href="https://google.github.io/eng-practices/review/developer/small-cls.html">Google Engineering Practices：Small CLs</a>：小而自洽的变化为何更容易审查、合并和回滚。</li>
+    <li><a href="https://docs.aws.amazon.com/wellarchitected/latest/operational-excellence-pillar/operational-excellence.html">AWS Well-Architected：Operational Excellence</a>：业务结果、可观测性、小步变更和持续改进的连接。</li>
+    <li><a href="https://google.github.io/styleguide/docguide/best_practices.html">Google Documentation Best Practices</a>：设计文档和 PRD 如何服务于收集反馈及记录决策。</li>
+  </ul>
+  <p class="small">有任何概念不清，直接追问；下一课会根据你的简报，练习“进入陌生代码库后如何建立系统模型”。</p>
+</main>
+</body>
+</html>
